@@ -1,157 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mike Mateo — Graphic Designer Portfolio</title>
-  <meta name="description" content="Graphic Designer with 6+ years experience in digital and print design. View selected works across advertising, branding, social media, and print." />
+  <meta name="description" content="Tech‑savvy Graphic Designer with 6+ years in branding, advertising, and performance creatives. View selected works across digital and print." />
   <link rel="canonical" href="https://example.com/" />
-  <script src="https://unpkg.com/lucide@latest"></script>
-
 
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Mike Mateo — Graphic Designer Portfolio" />
-  <meta property="og:description" content="Selected works in advertising, branding, social, and print. Based in Isabela, Philippines." />
+  <meta property="og:description" content="Selected works in advertising, branding, social, and print. Based in the Philippines." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="./assets/1000054877.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts: performance-friendly -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="icon" type="image/jpeg" href="./assets/favicon.jpg" />
 
   <style>
-    :root { --brand-1:#667eea; --brand-2:#764ba2; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-    .gradient-bg { background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%); }
-    .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,.08); }
-    .skill-tag { transition: transform .2s ease; }
-    .skill-tag:hover { transform: translateY(-1px); }
-    .nav-link { transition: color .2s ease; }
-    .section-fade { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
-    .section-fade.visible { opacity: 1; transform: translateY(0); }
-    .typing-caret { border-right: 2px solid var(--brand-1); }
-    .experience-timeline { position: relative; }
-    .experience-timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
-    .timeline-dot { position: absolute; left: 12px; width: 18px; height: 18px; background: var(--brand-1); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 3px #e5e7eb; }
-    .lightbox-open { overflow: hidden; }
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-      .section-fade { opacity: 1 !important; transform: none !important; }
+    :root { --brand-1:#0ea5e9; --brand-2:#6366f1; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .brand-gradient {
+      background:
+        radial-gradient(1000px 420px at 15% 0%, rgba(14,165,233,.28), transparent 60%),
+        radial-gradient(1000px 420px at 85% 10%, rgba(99,102,241,.28), transparent 60%),
+        linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%);
     }
-    /* Skip link */
-    .skip-link { position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden; }
-    .skip-link:focus { position: fixed; left: 1rem; top: 1rem; width:auto; height:auto; padding:.5rem .75rem; background:#111; color:#fff; border-radius:.5rem; z-index:60; }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; border:1px solid rgba(0,0,0,.06); }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,.10); border-color: rgba(14,165,233,.25); }
+    .typing { border-right:2px solid var(--brand-1); font-family:'JetBrains Mono', monospace; }
+    .section-fade { opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+    .section-fade.visible { opacity:1; transform:none; }
+    .timeline::before { content:''; position:absolute; left:20px; top:0; bottom:0; width:2px; background:#e5e7eb; }
+    .dot { position:absolute; left:12px; width:18px; height:18px; background:var(--brand-1); border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 3px #e5e7eb; }
+    .glass { background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.35)); backdrop-filter: blur(8px); }
+    .dark .glass { background: linear-gradient(180deg, rgba(17,24,39,.72), rgba(17,24,39,.45)); }
+    @media (prefers-reduced-motion: reduce) { *{ transition-duration:.01ms !important; animation-duration:.01ms !important; } .section-fade{ opacity:1; transform:none; } }
+
+    /* Lightbox */
+    #lightbox { position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.6); z-index: 60; padding: 24px; }
+    #lightbox.open { display: grid; }
+    #lightbox img { max-width: min(92vw, 1200px); max-height: 86vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.35); transform: scale(.96); opacity: 0; transition: transform .2s ease, opacity .2s ease; }
+    #lightbox.open img { transform: scale(1); opacity: 1; }
   </style>
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Mike Mateo",
-    "jobTitle":"Graphic Designer",
-    "url":"https://example.com/",
-    "email":"mailto:mateomike6@gmail.com",
-    "telephone":"+639682331601",
-    "address": {
-      "@type":"PostalAddress",
-      "addressLocality":"San Mateo",
-      "addressRegion":"Isabela",
-      "addressCountry":"PH"
-    },
-    "sameAs":["https://www.linkedin.com/in/mike-mateo"]
-  }
-  </script>
 </head>
-<body class="bg-gray-50">
-  <a class="skip-link" href="#home">Skip to content</a>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+  <!-- Theme bootstrap (runs ASAP) -->
+  <script>(function(){const s=localStorage.getItem('theme');const p=window.matchMedia('(prefers-color-scheme: dark)').matches; if(s==='dark'||(!s&&p)) document.documentElement.classList.add('dark');})();</script>
 
-  <!-- Header / Nav -->
-  <header class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm" role="banner">
+  <!-- Header -->
+  <header class="fixed top-0 w-full bg-white/80 dark:bg-gray-900/70 backdrop-blur-md z-50 border-b border-black/5 dark:border-white/5" role="banner">
     <div class="max-w-6xl mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <a href="#home" class="text-2xl font-bold text-gray-800" aria-label="Go to home">Mike Mateo</a>
-        <nav class="hidden md:flex space-x-8" aria-label="Primary">
-          <a href="#home" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Home</a>
-          <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 font-medium">About</a>
-          <a href="#skills" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Skills</a>
-          <a href="#portfolio" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Portfolio</a>
-          <a href="#experience" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Experience</a>
-          <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+      <div class="flex items-center justify-between">
+        <a href="#home" class="text-2xl font-bold tracking-tight flex items-center gap-2" aria-label="Go to home">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-500 text-white"><i data-lucide="pen-tool" class="w-4 h-4"></i></span>
+          Mike Mateo
+        </a>
+        <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
+          <a href="#home" class="hover:text-sky-600">Home</a>
+          <a href="#about" class="hover:text-sky-600">About</a>
+          <a href="#skills" class="hover:text-sky-600">Skills</a>
+          <a href="#portfolio" class="hover:text-sky-600">Portfolio</a>
+          <a href="#experience" class="hover:text-sky-600">Experience</a>
+          <a href="#contact" class="hover:text-sky-600">Contact</a>
         </nav>
-        <button id="mobile-menu-btn" class="md:hidden text-gray-600" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
+        <button id="mobile-btn" class="md:hidden" aria-label="Open menu"><i data-lucide="menu" class="w-7 h-7"></i></button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-x-full transition-transform duration-300 md:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
-    <div class="flex flex-col items-center justify-center h-full space-y-8">
-      <a href="#home" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Home</a>
-      <a href="#about" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">About</a>
-      <a href="#skills" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Skills</a>
-      <a href="#portfolio" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Portfolio</a>
-      <a href="#experience" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Experience</a>
-      <a href="#contact" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Contact</a>
+  <!-- Mobile nav -->
+  <div id="mobile-nav" class="fixed inset-0 bg-white dark:bg-gray-950 z-40 -translate-x-full transition-transform duration-300 md:hidden">
+    <div class="h-full flex flex-col items-center justify-center gap-8 text-xl">
+      <a class="hover:text-sky-600" href="#home">Home</a>
+      <a class="hover:text-sky-600" href="#about">About</a>
+      <a class="hover:text-sky-600" href="#skills">Skills</a>
+      <a class="hover:text-sky-600" href="#portfolio">Portfolio</a>
+      <a class="hover:text-sky-600" href="#experience">Experience</a>
+      <a class="hover:text-sky-600" href="#contact">Contact</a>
     </div>
   </div>
 
   <!-- Hero -->
-  <main id="home" class="gradient-bg min-h-screen flex items-center justify-center text-white" role="main">
+  <section id="home" class="brand-gradient min-h-screen flex items-center justify-center text-white">
     <div class="text-center px-6 pt-20">
-      <div class="mb-8">
-        <img src="./assets/Untitled (Posters (Portrait))_20241213_032945_0000.jpg" alt="Portrait of Mike Mateo" class="w-40 h-40 mx-auto mb-6 rounded-full object-cover shadow-lg ring-4 ring-white" loading="eager" decoding="async" />
-      </div>
-      <h1 class="text-5xl md:text-7xl font-bold mb-4">Mike Mateo</h1>
-      <p class="text-xl md:text-2xl mb-2 h-8"><span id="typing-text" class="typing-caret" aria-live="polite"></span></p>
-      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">Experienced Graphic Designer with 6+ years creating digital and print designs that inspire engagement and elevate brands.</p>
+      <img src="./assets/Untitled (Posters (Portrait))_20241213_032945_0000.jpg" alt="Portrait of Mike Mateo" class="w-40 h-40 mx-auto mb-6 rounded-2xl object-cover shadow-xl ring-4 ring-white/80" loading="eager" decoding="async" />
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">Mike Mateo</h1>
+      <p class="text-xl md:text-2xl h-8 mb-2 flex items-center justify-center gap-2"><i data-lucide="sparkles" class="w-5 h-5"></i><span id="typing" class="typing" aria-live="polite"></span></p>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">Tech‑savvy Graphic Designer blending aesthetics with performance — delivering clean, conversion‑focused visuals across digital and print.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#about" class="bg-white text-purple-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">View My Work</a>
-        <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-700 transition-colors">Get In Touch</a>
+        <a href="#portfolio" class="bg-white text-sky-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 inline-flex items-center gap-2"><i data-lucide="briefcase" class="w-5 h-5"></i>View My Work</a>
+        <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-sky-700 inline-flex items-center gap-2"><i data-lucide="send" class="w-5 h-5"></i>Get In Touch</a>
+      </div>
+      <!-- Capability chips -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="glass rounded-xl p-4 text-left">
+          <div class="flex items-center gap-3"><i data-lucide="zap" class="w-5 h-5"></i><span class="font-semibold">Ad Creatives</span></div>
+          <p class="text-white/90 text-sm mt-1">Static • Motion • UGC</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-left">
+          <div class="flex items-center gap-3"><i data-lucide="line-chart" class="w-5 h-5"></i><span class="font-semibold">Performance‑first</span></div>
+          <p class="text-white/90 text-sm mt-1">CTR • ROAS • CPA</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-left">
+          <div class="flex items-center gap-3"><i data-lucide="layers" class="w-5 h-5"></i><span class="font-semibold">Brand Systems</span></div>
+          <p class="text-white/90 text-sm mt-1">Logos • Kits • Guides</p>
+        </div>
+        <div class="glass rounded-xl p-4 text-left">
+          <div class="flex items-center gap-3"><i data-lucide="printer" class="w-5 h-5"></i><span class="font-semibold">Print Ready</span></div>
+          <p class="text-white/90 text-sm mt-1">Banners • Menus • POS</p>
+        </div>
       </div>
     </div>
-  </main>
+  </section>
 
   <!-- About -->
-  <section id="about" class="py-20 bg-white">
+  <section id="about" class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-fade">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">About Me</h2>
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+        <h2 class="text-4xl font-bold text-center mb-16">About Me</h2>
+        <div class="grid md:grid-cols-2 gap-12 items-start">
           <div>
-            <div class="text-6xl mb-6" aria-hidden="true">👨‍💻</div>
-            <h3 class="text-2xl font-semibold mb-4 text-gray-800">Creative Problem Solver</h3>
-            <p class="text-gray-600 leading-relaxed mb-6">Graphic Designer with 6+ years of experience delivering high-impact digital and print designs. Proficient in Adobe Photoshop, Canva, and MS Office, with expertise in creating compelling visual campaigns for social media, branding, and events.</p>
-            <p class="text-gray-600 leading-relaxed">Strong ability to merge creativity with strategy to increase engagement and brand visibility. Passionate about turning ideas into polished visuals that align with client goals.</p>
+            <div class="flex items-center gap-3 text-sky-600 mb-4"><i data-lucide="cpu" class="w-6 h-6"></i><h3 class="text-2xl font-semibold">Design × Systems Thinking</h3></div>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">Graphic Designer with 6+ years delivering high‑impact digital & print designs. Proficient in Adobe Photoshop, Canva, and MS Office. I create scalable visual systems for social, brand, and events—balancing craft with measurable performance.</p>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">I collaborate closely with media buyers and marketing teams to improve CTR, ROAS, and lower CPA through data‑informed design.</p>
           </div>
-          <aside class="bg-gray-50 p-8 rounded-2xl" aria-label="Education and certifications">
-            <h4 class="text-xl font-semibold mb-6 text-gray-800">Education &amp; Certifications</h4>
-            <div class="space-y-4">
-              <div class="border-l-4 border-blue-500 pl-4">
-                <h5 class="font-semibold text-gray-800">Bachelor of Science in Information Technology</h5>
-                <p class="text-gray-600">Isabela State University, 2018 – 2022</p>
-              </div>
-              <ul class="space-y-2 list-none">
-                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span>Graphic Design Essentials – Canva Team (2024)</li>
-                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span>Microsoft Skills for Jobs: PowerPoint Pro (2024)</li>
-                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span><a href="https://cert.efset.org/jfdD3M" target="_blank" rel="noopener" class="hover:underline hover:text-blue-600">EF SET English Certificate – C1 Advanced (2024)</a><span class="ml-2 text-xs text-gray-500">(verify)</span></li>
-                <li class="flex items-start text-sm text-gray-600"><span aria-hidden="true" class="inline-block w-2 h-2 bg-green-500 rounded-full mr-2 mt-1 shrink-0"></span><span>Web Application Security Testing Using Open Source Tools – Isabela State University <span class="text-gray-500">(Nov 19, 2021)</span></span></li>
-                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span>Explearning’s Everyday English – Enhanced by Explearning (Dec 11, 2024)</li>
-                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span><a href="https://www.credly.com/badges/53649d1e-dab1-4f6a-8d32-92abfc4de9fe/public_url" target="_blank" rel="noopener" class="hover:underline hover:text-blue-600">Asana Workflow Specialist</a><span class="ml-2 text-xs text-gray-500">(verify)</span></li>
-              </ul>
-            </div>
+          <aside class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl card-hover" aria-label="Education and certifications">
+            <h4 class="text-xl font-semibold mb-6">Education & Certifications</h4>
+            <ul class="space-y-3 text-gray-700 dark:text-gray-200">
+              <li class="flex items-start gap-3"><i data-lucide="graduation-cap" class="w-5 h-5 mt-1 text-sky-600"></i><span><strong>B.S. Information Technology</strong> — Isabela State University (2018–2022)</span></li>
+              <li class="flex items-start gap-3"><i data-lucide="badge-check" class="w-5 h-5 mt-1 text-sky-600"></i><span>Graphic Design Essentials — Canva Team (2024)</span></li>
+              <li class="flex items-start gap-3"><i data-lucide="badge-check" class="w-5 h-5 mt-1 text-sky-600"></i><span>Microsoft Skills for Jobs: PowerPoint Pro (2024)</span></li>
+              <li class="flex items-start gap-3"><i data-lucide="link" class="w-5 h-5 mt-1 text-sky-600"></i><span><a class="underline hover:text-sky-600" href="https://cert.efset.org/jfdD3M" target="_blank" rel="noopener">EF SET English Certificate — C1 Advanced (2024)</a></span></li>
+              <li class="flex items-start gap-3"><i data-lucide="calendar-clock" class="w-5 h-5 mt-1 text-sky-600"></i><span>Web App Security Testing (Nov 19, 2021)</span></li>
+              <li class="flex items-start gap-3"><i data-lucide="link" class="w-5 h-5 mt-1 text-sky-600"></i><span><a class="underline hover:text-sky-600" href="https://www.credly.com/badges/53649d1e-dab1-4f6a-8d32-92abfc4de9fe/public_url" target="_blank" rel="noopener">Asana Workflow Specialist</a></span></li>
+            </ul>
           </aside>
         </div>
       </div>
@@ -159,36 +148,36 @@
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="py-20 bg-gray-50">
+  <section id="skills" class="py-20 bg-gray-50 dark:bg-gray-950">
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-fade">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Skills &amp; Expertise</h2>
+        <h2 class="text-4xl font-bold text-center mb-16">Skills & Expertise</h2>
         <div class="grid md:grid-cols-3 gap-8">
-          <div class="bg-white p-8 rounded-2xl card-hover">
-            <div class="text-4xl mb-4" aria-hidden="true">🎨</div>
-            <h3 class="text-xl font-semibold mb-4 text-gray-800">Design Tools</h3>
+          <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl card-hover">
+            <div class="text-sky-600 mb-4"><i data-lucide="palette" class="w-8 h-8"></i></div>
+            <h3 class="text-xl font-semibold mb-3">Design Tools</h3>
             <div class="flex flex-wrap gap-2">
-              <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Adobe Photoshop</span>
-              <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Canva</span>
-              <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">MS Office</span>
+              <span class="bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="pen-square" class="w-4 h-4"></i>Photoshop</span>
+              <span class="bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="shapes" class="w-4 h-4"></i>Canva</span>
+              <span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="file-text" class="w-4 h-4"></i>MS Office</span>
             </div>
           </div>
-          <div class="bg-white p-8 rounded-2xl card-hover">
-            <div class="text-4xl mb-4" aria-hidden="true">🚀</div>
-            <h3 class="text-xl font-semibold mb-4 text-gray-800">Specializations</h3>
+          <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl card-hover">
+            <div class="text-indigo-600 mb-4"><i data-lucide="rocket" class="w-8 h-8"></i></div>
+            <h3 class="text-xl font-semibold mb-3">Specializations</h3>
             <div class="flex flex-wrap gap-2">
-              <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Branding</span>
-              <span class="skill-tag bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Social Media Ads</span>
-              <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">Print Design</span>
+              <span class="bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="badge-check" class="w-4 h-4"></i>Branding</span>
+              <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="megaphone" class="w-4 h-4"></i>Social Ads</span>
+              <span class="bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="printer" class="w-4 h-4"></i>Print Design</span>
             </div>
           </div>
-          <div class="bg-white p-8 rounded-2xl card-hover">
-            <div class="text-4xl mb-4" aria-hidden="true">💡</div>
-            <h3 class="text-xl font-semibold mb-4 text-gray-800">Additional Skills</h3>
+          <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl card-hover">
+            <div class="text-emerald-600 mb-4"><i data-lucide="sparkles" class="w-8 h-8"></i></div>
+            <h3 class="text-xl font-semibold mb-3">Additional</h3>
             <div class="flex flex-wrap gap-2">
-              <span class="skill-tag bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">Photography</span>
-              <span class="skill-tag bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">Video Editing</span>
-              <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Problem Solving</span>
+              <span class="bg-pink-100 text-pink-800 dark:bg-pink-900/40 dark:text-pink-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="camera" class="w-4 h-4"></i>Photography</span>
+              <span class="bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="film" class="w-4 h-4"></i>Video Editing</span>
+              <span class="bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200 px-3 py-1 rounded-full text-sm inline-flex items-center gap-1"><i data-lucide="puzzle" class="w-4 h-4"></i>Problem Solving</span>
             </div>
           </div>
         </div>
@@ -197,62 +186,90 @@
   </section>
 
   <!-- Portfolio -->
-  <section id="portfolio" class="py-20 bg-white">
+  <section id="portfolio" class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-fade">
-        <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Sample Works</h2>
-        <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">A selection of recent design projects — social media campaigns, branding, print, and advertising.</p>
+        <h2 class="text-4xl font-bold text-center mb-8">Sample Works</h2>
+        <p class="text-center text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">A selection of recent design projects — social campaigns, branding, print, and advertising.</p>
 
         <div class="flex flex-wrap justify-center gap-3 mb-12" role="group" aria-label="Filter portfolio">
-          <button class="portfolio-filter active bg-blue-600 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors" data-filter="all" aria-pressed="true">All Works</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="social-media" aria-pressed="false">Social Media</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="branding" aria-pressed="false">Branding</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="print" aria-pressed="false">Print Design</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="advertising" aria-pressed="false">Advertising</button>
+          <button class="portfolio-filter active bg-sky-600 text-white px-5 py-2 rounded-full font-medium hover:bg-sky-700" data-filter="all" aria-pressed="true">All Works</button>
+          <button class="portfolio-filter bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-5 py-2 rounded-full font-medium hover:bg-gray-300 dark:hover:bg-gray-700" data-filter="social-media" aria-pressed="false">Social Media</button>
+          <button class="portfolio-filter bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-5 py-2 rounded-full font-medium hover:bg-gray-300 dark:hover:bg-gray-700" data-filter="branding" aria-pressed="false">Branding</button>
+          <button class="portfolio-filter bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-5 py-2 rounded-full font-medium hover:bg-gray-300 dark:hover:bg-gray-700" data-filter="print" aria-pressed="false">Print Design</button>
+          <button class="portfolio-filter bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-5 py-2 rounded-full font-medium hover:bg-gray-300 dark:hover:bg-gray-700" data-filter="advertising" aria-pressed="false">Advertising</button>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
-          <!-- Each figure retains your original content/images -->
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="advertising">
-            <img src="./assets/1000054877.png" loading="lazy" alt="Restaurant promo poster for Unlimited Pork Samgyupsal" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054877.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Restaurant Promo Poster</h3><p class="text-gray-600 text-sm mb-4">Unlimited Pork Samgyupsal — branch poster (social + in-store)</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">FB</span></div></figcaption>
+          <!-- Advertising -->
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="advertising">
+            <img src="./assets/1000054877.png" data-full="./assets/1000054877.png" loading="lazy" alt="Restaurant promo poster — Unlimited Pork Samgyupsal" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">Restaurant Promo Poster</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Unlimited Pork Samgyupsal — branch poster</p>
+            </figcaption>
           </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="advertising">
-            <img src="./assets/1000054881.png" loading="lazy" alt="Gogi Jjang 1.5 hours promo poster" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054881.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Promo Poster (Tuguegarao)</h3><p class="text-gray-600 text-sm mb-4">Unlimited Pork Samgyupsal — 1.5 hours promo</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Restaurant</span></div></figcaption>
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="advertising">
+            <img src="./assets/1000054881.png" data-full="./assets/1000054881.png" loading="lazy" alt="Promo poster — 1.5 hours" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">Promo Poster (Tuguegarao)</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Unlimited Pork Samgyupsal — 1.5 hours promo</p>
+            </figcaption>
           </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="advertising">
-            <img src="./assets/1000054879.png" loading="lazy" alt="Grand opening poster for 198 Unli Pork" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054879.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Grand Opening Promo</h3><p class="text-gray-600 text-sm mb-4">198 Unli Pork Samgyupsal — no time limit</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Launch</span></div></figcaption>
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="advertising">
+            <img src="./assets/1000054879.png" data-full="./assets/1000054879.png" loading="lazy" alt="Grand opening poster — 198 Unli Pork" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">Grand Opening Promo</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">198 Unli Pork Samgyupsal — no time limit</p>
+            </figcaption>
           </figure>
 
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054885.png" loading="lazy" alt="University congratulations banner — landscape layout" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054885.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">University Congratulations Banner</h3><p class="text-gray-600 text-sm mb-4">Landscape layout for Nurse Licensure Examination passer</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Academic</span></div></figcaption>
+          <!-- Print -->
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="print">
+            <img src="./assets/1000054885.png" data-full="./assets/1000054885.png" loading="lazy" alt="University congratulations banner — landscape" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">University Congratulations Banner</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Landscape layout for NLE passer</p>
+            </figcaption>
           </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054888.png" loading="lazy" alt="Congratulations poster — portrait version" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054888.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Congratulations Poster (Portrait)</h3><p class="text-gray-600 text-sm mb-4">Portrait version with institutional branding</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Poster</span></div></figcaption>
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="print">
+            <img src="./assets/1000054888.png" data-full="./assets/1000054888.png" loading="lazy" alt="Congratulations poster — portrait" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">Congratulations Poster (Portrait)</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Institutional branding variant</p>
+            </figcaption>
           </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054889.png" loading="lazy" alt="Wide-format banner featuring Marian Nurses NLE passers" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054889.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">NLE Passers Group Banner</h3><p class="text-gray-600 text-sm mb-4">Wide-format banner featuring Marian Nurses</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Large Format</span></div></figcaption>
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="print">
+            <img src="./assets/1000054889.png" data-full="./assets/1000054889.png" loading="lazy" alt="NLE passers wide-format banner" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">NLE Passers Group Banner</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Wide-format banner</p>
+            </figcaption>
           </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054887.png" loading="lazy" alt="Community campaign poster — SK Chairman candidate" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054887.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Community Campaign Poster</h3><p class="text-gray-600 text-sm mb-4">SK Chairman candidate visual (ready-to-print)</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded text-xs">Civic</span></div></figcaption>
+
+          <!-- Social -->
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="social-media">
+            <img src="./assets/1000054884.png" data-full="./assets/1000054884.png" loading="lazy" alt="Real estate webinar tile" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">Real Estate Webinar Creative</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Square social tile</p>
+            </figcaption>
           </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="social-media">
-            <img src="./assets/1000054884.png" loading="lazy" alt="Real estate webinar social tile" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054884.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Real Estate Webinar Creative</h3><p class="text-gray-600 text-sm mb-4">Square social tile for agent audience</p><div class="flex flex-wrap gap-2"><span class="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs">Social</span><span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs">Education</span></div></figcaption>
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="social-media">
+            <img src="./assets/1000054882.png" data-full="./assets/1000054882.png" loading="lazy" alt="Property valuation lead-gen tile" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">Property Valuation Lead‑Gen</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">CTA‑focused graphic</p>
+            </figcaption>
           </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="social-media">
-            <img src="./assets/1000054882.png" loading="lazy" alt="Lead generation tile — property valuation CTA" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054882.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Property Valuation Lead-Gen</h3><p class="text-gray-600 text-sm mb-4">CTA-focused graphic for address capture</p><div class="flex flex-wrap gap-2"><span class="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs">Social</span><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Lead Gen</span></div></figcaption>
-          </figure>
-          <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="branding">
-            <img src="./assets/1000054883.png" loading="lazy" alt="Beauty Beyond Boundaries — editorial branding poster" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054883.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Beauty Campaign Key Visual</h3><p class="text-gray-600 text-sm mb-4">Editorial look for brand message “Beauty Beyond Boundaries”</p><div class="flex flex-wrap gap-2"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Branding</span><span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Editorial</span></div></figcaption>
+
+          <!-- Branding -->
+          <figure class="portfolio-item card-hover bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden" data-category="branding">
+            <img src="./assets/1000054883.png" data-full="./assets/1000054883.png" loading="lazy" alt="Beauty Beyond Boundaries branding poster" class="h-64 w-full object-cover cursor-zoom-in">
+            <figcaption class="p-6">
+              <h3 class="text-lg font-semibold mb-2">Beauty Campaign Key Visual</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Editorial brand message</p>
+            </figcaption>
           </figure>
         </div>
       </div>
@@ -260,61 +277,58 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="py-20 bg-gray-50">
+  <section id="experience" class="py-20 bg-gray-50 dark:bg-gray-950">
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-fade">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Professional Experience</h2>
-        <div class="experience-timeline pl-12">
+        <h2 class="text-4xl font-bold text-center mb-16">Professional Experience</h2>
+        <div class="relative timeline pl-12">
           <article class="mb-12 relative">
-            <div class="timeline-dot" style="top: 8px;"></div>
-            <div class="bg-gray-50 p-6 rounded-2xl card-hover">
+            <div class="dot" style="top: 8px;"></div>
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-2xl card-hover">
               <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                <h3 class="text-xl font-semibold text-gray-800">Graphic Designer — Advertising</h3>
-                <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full font-medium">Current</span>
+                <h3 class="text-xl font-semibold flex items-center gap-2"><i data-lucide="layout" class="w-5 h-5 text-sky-600"></i>Graphic Designer — Advertising</h3>
+                <span class="text-sm bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200 px-3 py-1 rounded-full font-medium">Current</span>
               </div>
-              <p class="text-blue-600 font-medium mb-2">Disruptive Digital, Remote</p>
-              <p class="text-gray-500 text-sm mb-4">Feb 2025 – Present</p>
-              <ul class="text-gray-600 list-disc pl-5 space-y-1">
-                <li>Produced high-converting ad creatives for 7-figure eCommerce campaigns across Meta and Google.</li>
-                <li>Collaborated with media buyers to drive results, focusing on CTR, ROAS, and lowering CPA.</li>
-                <li>Specialized in static, motion, and UGC-style creatives.</li>
+              <p class="text-sky-600 dark:text-sky-400 font-medium mb-1">Disruptive Digital, Remote</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Feb 2025 – Present</p>
+              <ul class="text-gray-700 dark:text-gray-200 list-disc pl-5 space-y-1">
+                <li>Produced high‑converting ad creatives for 7‑figure eCommerce campaigns (Meta, Google).</li>
+                <li>Partnered with media buyers to improve CTR/ROAS and reduce CPA.</li>
+                <li>Specialized in static, motion, and UGC‑style creatives.</li>
               </ul>
             </div>
           </article>
-
           <article class="mb-12 relative">
-            <div class="timeline-dot" style="top: 8px;"></div>
-            <div class="bg-gray-50 p-6 rounded-2xl card-hover">
-              <h3 class="text-xl font-semibold text-gray-800 mb-2">Freelance Graphic Designer</h3>
-              <p class="text-blue-600 font-medium mb-2">Self-Employed</p>
-              <p class="text-gray-500 text-sm mb-4">2018 – Present</p>
-              <ul class="text-gray-600 list-disc pl-5 space-y-1">
-                <li>Designed brochures, flyers, posters, banners, and print-ready tarpaulins.</li>
+            <div class="dot" style="top: 8px;"></div>
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-2xl card-hover">
+              <h3 class="text-xl font-semibold mb-2 flex items-center gap-2"><i data-lucide="briefcase" class="w-5 h-5 text-sky-600"></i>Freelance Graphic Designer</h3>
+              <p class="text-sky-600 dark:text-sky-400 font-medium mb-1">Self‑Employed</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">2018 – Present</p>
+              <ul class="text-gray-700 dark:text-gray-200 list-disc pl-5 space-y-1">
+                <li>Designed brochures, flyers, posters, banners, and print‑ready tarpaulins.</li>
                 <li>Delivered print and digital solutions for local businesses and events.</li>
               </ul>
             </div>
           </article>
-
           <article class="mb-12 relative">
-            <div class="timeline-dot" style="top: 8px;"></div>
-            <div class="bg-gray-50 p-6 rounded-2xl card-hover">
-              <h3 class="text-xl font-semibold text-gray-800 mb-2">Graphic Designer</h3>
-              <p class="text-blue-600 font-medium mb-2">Gogi Jjang Unlimited Korean Grill</p>
-              <p class="text-gray-500 text-sm mb-4">2023 – 2024</p>
-              <ul class="text-gray-600 list-disc pl-5 space-y-1">
-                <li>Created promotional materials for campaigns and in-store communications.</li>
-                <li>Collaborated with ownership to design menus and graphics that increased customer engagement.</li>
+            <div class="dot" style="top: 8px;"></div>
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-2xl card-hover">
+              <h3 class="text-xl font-semibold mb-2 flex items-center gap-2"><i data-lucide="utensils-crossed" class="w-5 h-5 text-sky-600"></i>Graphic Designer</h3>
+              <p class="text-sky-600 dark:text-sky-400 font-medium mb-1">Gogi Jjang Unlimited Korean Grill</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">2023 – 2024</p>
+              <ul class="text-gray-700 dark:text-gray-200 list-disc pl-5 space-y-1">
+                <li>Created promotional materials for campaigns and in‑store communications.</li>
+                <li>Collaborated on menus and graphics to increase customer engagement.</li>
               </ul>
             </div>
           </article>
-
           <article class="mb-12 relative">
-            <div class="timeline-dot" style="top: 8px;"></div>
-            <div class="bg-gray-50 p-6 rounded-2xl card-hover">
-              <h3 class="text-xl font-semibold text-gray-800 mb-2">Canva Affiliate</h3>
-              <p class="text-blue-600 font-medium mb-2">Canva PH</p>
-              <p class="text-gray-500 text-sm mb-4">2022 – 2024</p>
-              <p class="text-gray-600">Promoted Canva by creating tutorials and videos for social media audiences.</p>
+            <div class="dot" style="top: 8px;"></div>
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-2xl card-hover">
+              <h3 class="text-xl font-semibold mb-2 flex items-center gap-2"><i data-lucide="badge-check" class="w-5 h-5 text-sky-600"></i>Canva Affiliate</h3>
+              <p class="text-sky-600 dark:text-sky-400 font-medium mb-1">Canva PH</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">2022 – 2024</p>
+              <p class="text-gray-700 dark:text-gray-200">Promoted Canva by creating tutorials and videos for social audiences.</p>
             </div>
           </article>
         </div>
@@ -323,98 +337,80 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-20 gradient-bg text-white">
-    <div class="max-w-4xl mx-auto px-6 text-center">
+  <section id="contact" class="py-20 brand-gradient text-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
       <div class="section-fade">
         <h2 class="text-4xl font-bold mb-8">Let's Work Together</h2>
         <p class="text-xl mb-12 opacity-90">Ready to bring your vision to life? Let's create something amazing together.</p>
-        <div class="grid md:grid-cols-2 gap-8 mb-12">
-          <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl">
-            <div class="text-3xl mb-4" aria-hidden="true">📧</div>
-            <h3 class="text-lg font-semibold mb-2">Email</h3>
+        <div class="grid md:grid-cols-3 gap-6 mb-10">
+          <div class="glass p-6 rounded-2xl">
+            <div class="flex items-center justify-center gap-2 text-lg font-semibold mb-2"><i data-lucide="mail" class="w-6 h-6"></i>Email</div>
             <a href="mailto:mateomike6@gmail.com" class="text-white/90 hover:text-white">mateomike6@gmail.com</a>
           </div>
-          <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl">
-            <div class="text-3xl mb-4" aria-hidden="true">📱</div>
-            <h3 class="text-lg font-semibold mb-2">Phone</h3>
+          <div class="glass p-6 rounded-2xl">
+            <div class="flex items-center justify-center gap-2 text-lg font-semibold mb-2"><i data-lucide="phone" class="w-6 h-6"></i>Phone</div>
             <a href="tel:+639682331601" class="text-white/90 hover:text-white">+63-968-233-1601</a>
           </div>
-        </div>
-        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl mb-8">
-          <div class="text-3xl mb-4" aria-hidden="true">📍</div>
-          <h3 class="text-lg font-semibold mb-2">Location</h3>
-          <p class="text-white/90">San Mateo, Isabela, Philippines</p>
+          <div class="glass p-6 rounded-2xl">
+            <div class="flex items-center justify-center gap-2 text-lg font-semibold mb-2"><i data-lucide="map-pin" class="w-6 h-6"></i>Location</div>
+            <p class="text-white/90">San Mateo, Isabela, Philippines</p>
+          </div>
         </div>
         <div class="flex justify-center gap-4">
-          <a href="mailto:mateomike6@gmail.com" class="bg-white text-purple-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">Send Email</a>
-          <a href="https://www.linkedin.com/in/mike-mateo" target="_blank" rel="noopener" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-700 transition-colors">LinkedIn Profile</a>
+          <a href="mailto:mateomike6@gmail.com" class="bg-white text-sky-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 inline-flex items-center gap-2"><i data-lucide="send" class="w-5 h-5"></i>Send Email</a>
+          <a href="https://www.linkedin.com/in/mike-mateo" target="_blank" rel="noopener" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-sky-700 inline-flex items-center gap-2"><i data-lucide="linkedin" class="w-5 h-5"></i>LinkedIn Profile</a>
         </div>
       </div>
     </div>
   </section>
 
   <footer class="bg-gray-900 text-white py-8" role="contentinfo">
-    <div class="max-w-6xl mx-auto px-6 text-center">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
       <p class="text-gray-400">© <span id="year"></span> Mike Mateo. All rights reserved.</p>
+      <a href="#home" class="inline-flex items-center gap-2 text-gray-300 hover:text-white"><i data-lucide="arrow-up" class="w-5 h-5"></i>Back to top</a>
     </div>
   </footer>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="fixed inset-0 bg-black/80 hidden items-center justify-center p-4 z-[60]" aria-hidden="true">
-    <button id="lightbox-close" class="absolute top-4 right-4 text-white text-2xl" aria-label="Close">✕</button>
-    <img id="lightbox-img" alt="Portfolio preview" class="max-h-[90vh] w-auto rounded-lg shadow-2xl" />
+  <!-- Lightbox element -->
+  <div id="lightbox" aria-modal="true" role="dialog" aria-label="Full-size image viewer">
+    <img src="" alt="" />
   </div>
 
+  <!-- Scripts -->
   <script>
-    // Typing text (accessible, reduced motion friendly)
-    const texts = ['Graphic Designer', 'Creative Problem Solver', 'Brand Strategist', 'Visual Storyteller'];
-    let textIndex = 0, charIndex = 0, deleting = false; const typingEl = document.getElementById('typing-text');
-    function typeLoop(){
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const t = texts[textIndex];
-      if(deleting){ typingEl.textContent = t.slice(0, --charIndex); }
-      else { typingEl.textContent = t.slice(0, ++charIndex); }
-      if(!deleting && charIndex === t.length){ if(reduced){ textIndex = (textIndex+1)%texts.length; charIndex = 0; } else { deleting = true; setTimeout(typeLoop, 1200); return; } }
-      else if(deleting && charIndex === 0){ deleting = false; textIndex = (textIndex+1)%texts.length; }
-      setTimeout(typeLoop, deleting ? 45 : 90);
+    // Mobile nav
+    const mobileBtn = document.getElementById('mobile-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    mobileBtn.addEventListener('click', ()=>{
+      mobileNav.classList.toggle('-translate-x-full');
+      mobileNav.classList.toggle('translate-x-0');
+    });
+
+    // Typing headline
+    const words = ['Graphic Designer', 'Creative Problem Solver', 'Brand Strategist', 'Visual Storyteller'];
+    let wi=0, ci=0, del=false; const typing = document.getElementById('typing');
+    function loop(){
+      const w = words[wi];
+      typing.textContent = del ? w.slice(0, --ci) : w.slice(0, ++ci);
+      if(!del && ci === w.length){ del = true; setTimeout(loop, 1200); return; }
+      if(del && ci === 0){ del = false; wi = (wi+1)%words.length; }
+      setTimeout(loop, del ? 45 : 90);
     }
 
-    // Smooth anchor + close mobile menu
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id = a.getAttribute('href');
-        if(id.length>1){ e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'}); }
-        mobileMenu.classList.add('-translate-x-full'); mobileMenu.classList.remove('translate-x-0'); mobileBtn.setAttribute('aria-expanded','false');
-      });
-    });
-
-    // Mobile menu toggle (with a11y states)
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileBtn.addEventListener('click', ()=>{
-      const open = mobileMenu.classList.toggle('-translate-x-full');
-      mobileMenu.classList.toggle('translate-x-0');
-      const expanded = mobileMenu.classList.contains('translate-x-0');
-      mobileBtn.setAttribute('aria-expanded', String(expanded));
-    });
-
-    // Section fade-in
-    const io = new IntersectionObserver((entries)=>{
-      for(const entry of entries){ if(entry.isIntersecting) entry.target.classList.add('visible'); }
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    // Section reveal
+    const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold:0.1, rootMargin:'0px 0px -50px 0px' });
     document.querySelectorAll('.section-fade').forEach(el=> io.observe(el));
 
-    // Portfolio filters (updates aria-pressed)
-    const filterButtons = document.querySelectorAll('.portfolio-filter');
+    // Portfolio filter
+    const filterBtns = document.querySelectorAll('.portfolio-filter');
     const items = document.querySelectorAll('.portfolio-item');
-    filterButtons.forEach(btn=>{
+    filterBtns.forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        filterButtons.forEach(b=>{ b.classList.remove('active','bg-blue-600','text-white'); b.classList.add('bg-gray-200','text-gray-700'); b.setAttribute('aria-pressed','false'); });
-        btn.classList.remove('bg-gray-200','text-gray-700'); btn.classList.add('active','bg-blue-600','text-white'); btn.setAttribute('aria-pressed','true');
-        const filter = btn.getAttribute('data-filter');
+        filterBtns.forEach(b=>{ b.classList.remove('active','bg-sky-600','text-white'); b.classList.add('bg-gray-200','dark:bg-gray-800','text-gray-700','dark:text-gray-200'); b.setAttribute('aria-pressed','false'); });
+        btn.classList.remove('bg-gray-200','dark:bg-gray-800','text-gray-700','dark:text-gray-200'); btn.classList.add('active','bg-sky-600','text-white'); btn.setAttribute('aria-pressed','true');
+        const f = btn.getAttribute('data-filter');
         items.forEach(it=>{
-          const cat = it.getAttribute('data-category');
-          const show = (filter === 'all' || cat === filter);
+          const show = (f==='all' || it.getAttribute('data-category')===f);
           it.style.display = show ? 'block' : 'none';
           it.style.opacity = show ? '1' : '0';
           it.style.transform = show ? 'translateY(0)' : 'translateY(16px)';
@@ -422,45 +418,48 @@
       });
     });
 
-    // Active section highlight
-    window.addEventListener('scroll', ()=>{
-      const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('header nav a[href^="#"]');
-      let current = '';
-      sections.forEach(sec=>{ if(scrollY >= sec.offsetTop - 200) current = sec.id; });
-      navLinks.forEach(link=>{ link.classList.toggle('text-blue-600', link.getAttribute('href') === `#${current}`); });
+    // Theme toggle
+    document.getElementById('theme-toggle')?.addEventListener('click', ()=>{
+      const d = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', d ? 'dark' : 'light');
     });
 
-    // Lightbox with focus handling
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxClose = document.getElementById('lightbox-close');
-    function openLightbox(src){
-      lightboxImg.src = src; lightbox.classList.remove('hidden'); document.body.classList.add('lightbox-open');
-      lightbox.setAttribute('aria-hidden','false'); lightboxClose.focus();
-    }
-    function closeLightbox(){
-      lightbox.classList.add('hidden'); lightboxImg.src = ''; document.body.classList.remove('lightbox-open');
-      lightbox.setAttribute('aria-hidden','true');
-    }
-    document.querySelectorAll('.lightbox-trigger').forEach(img=>{
-      img.addEventListener('click', ()=> openLightbox(img.getAttribute('data-full') || img.src));
-      img.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openLightbox(img.getAttribute('data-full')||img.src); } });
-      img.setAttribute('tabindex','0'); img.setAttribute('role','button'); img.setAttribute('aria-label','Open larger preview');
-    });
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !lightbox.classList.contains('hidden')) closeLightbox(); });
-
-    // Year
+    // Year + start
     document.getElementById('year').textContent = new Date().getFullYear();
+    loop();
 
-    // Start typing
-    typeLoop();
+    // Render Lucide icons
+    if(window.lucide){ lucide.createIcons(); }
+
+    // Lightbox for portfolio images
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+
+    document.querySelectorAll('#portfolio-grid img').forEach(img => {
+      img.addEventListener('click', () => {
+        const full = img.getAttribute('data-full') || img.src;
+        lbImg.src = full;
+        lbImg.alt = img.alt || 'Full-size image';
+        lb.classList.add('open');
+        // prevent background scroll
+        document.documentElement.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLB() {
+      lb.classList.remove('open');
+      lbImg.src = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    lb.addEventListener('click', (e) => {
+      // Click backdrop to close. Click on image will also close; change condition if you prefer otherwise
+      if (e.target === lb || e.target === lbImg) closeLB();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
+    });
   </script>
-  <script>
-  window.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide){ lucide.createIcons(); } });
-</script>
-
 </body>
 </html>
