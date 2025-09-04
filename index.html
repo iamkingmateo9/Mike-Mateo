@@ -2,105 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mike Mateo - Graphic Designer Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mike Mateo — Graphic Designer Portfolio</title>
+  <meta name="description" content="Graphic Designer with 6+ years experience in digital and print design. View selected works across advertising, branding, social media, and print." />
+  <link rel="canonical" href="https://example.com/" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Mike Mateo — Graphic Designer Portfolio" />
+  <meta property="og:description" content="Selected works in advertising, branding, social, and print. Based in Isabela, Philippines." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/1000054877.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts: performance-friendly -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet" />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="./assets/favicon.jpg" />
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-    .skill-tag { transition: all 0.3s ease; }
-    .skill-tag:hover { transform: scale(1.05); }
-    .nav-link { transition: all 0.3s ease; }
-    .nav-link:hover { color: #667eea; }
-    .section-fade { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    :root { --brand-1:#667eea; --brand-2:#764ba2; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%); }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,.08); }
+    .skill-tag { transition: transform .2s ease; }
+    .skill-tag:hover { transform: translateY(-1px); }
+    .nav-link { transition: color .2s ease; }
+    .section-fade { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
     .section-fade.visible { opacity: 1; transform: translateY(0); }
-    .typing-animation { border-right: 2px solid #667eea; animation: blink 1s infinite; }
-    @keyframes blink { 0%, 50% { border-color: transparent; } 51%, 100% { border-color: #667eea; } }
+    .typing-caret { border-right: 2px solid var(--brand-1); }
     .experience-timeline { position: relative; }
     .experience-timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
-    .timeline-dot { position: absolute; left: 12px; width: 18px; height: 18px; background: #667eea; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 3px #e5e7eb; }
+    .timeline-dot { position: absolute; left: 12px; width: 18px; height: 18px; background: var(--brand-1); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 3px #e5e7eb; }
     .lightbox-open { overflow: hidden; }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .section-fade { opacity: 1 !important; transform: none !important; }
+    }
+    /* Skip link */
+    .skip-link { position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus { position: fixed; left: 1rem; top: 1rem; width:auto; height:auto; padding:.5rem .75rem; background:#111; color:#fff; border-radius:.5rem; z-index:60; }
   </style>
-  <link rel="icon" type="image/jpeg" href="./assets/favicon.jpg">
 
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Mike Mateo",
+    "jobTitle":"Graphic Designer",
+    "url":"https://example.com/",
+    "email":"mailto:mateomike6@gmail.com",
+    "telephone":"+639682331601",
+    "address": {
+      "@type":"PostalAddress",
+      "addressLocality":"San Mateo",
+      "addressRegion":"Isabela",
+      "addressCountry":"PH"
+    },
+    "sameAs":["https://www.linkedin.com/in/mike-mateo"]
+  }
+  </script>
 </head>
 <body class="bg-gray-50">
-  <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
+  <a class="skip-link" href="#home">Skip to content</a>
+
+  <!-- Header / Nav -->
+  <header class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm" role="banner">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
-        <div class="text-2xl font-bold text-gray-800">Mike Mateo</div>
-        <div class="hidden md:flex space-x-8">
+        <a href="#home" class="text-2xl font-bold text-gray-800" aria-label="Go to home">Mike Mateo</a>
+        <nav class="hidden md:flex space-x-8" aria-label="Primary">
           <a href="#home" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Home</a>
           <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 font-medium">About</a>
           <a href="#skills" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Skills</a>
           <a href="#portfolio" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Portfolio</a>
           <a href="#experience" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Experience</a>
           <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium">Contact</a>
-        </div>
-        <button id="mobile-menu-btn" class="md:hidden text-gray-600" aria-label="Open menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        </nav>
+        <button id="mobile-menu-btn" class="md:hidden text-gray-600" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-x-full transition-transform duration-300 md:hidden">
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-x-full transition-transform duration-300 md:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <div class="flex flex-col items-center justify-center h-full space-y-8">
-      <a href="#home" class="mobile-nav-link text-2xl text-gray-600 hover:text-blue-600">Home</a>
-      <a href="#about" class="mobile-nav-link text-2xl text-gray-600 hover:text-blue-600">About</a>
-      <a href="#skills" class="mobile-nav-link text-2xl text-gray-600 hover:text-blue-600">Skills</a>
-      <a href="#portfolio" class="mobile-nav-link text-2xl text-gray-600 hover:text-blue-600">Portfolio</a>
-      <a href="#experience" class="mobile-nav-link text-2xl text-gray-600 hover:text-blue-600">Experience</a>
-      <a href="#contact" class="mobile-nav-link text-2xl text-gray-600 hover:text-blue-600">Contact</a>
+      <a href="#home" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Home</a>
+      <a href="#about" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">About</a>
+      <a href="#skills" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Skills</a>
+      <a href="#portfolio" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Portfolio</a>
+      <a href="#experience" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Experience</a>
+      <a href="#contact" class="mobile-nav-link text-2xl text-gray-700 hover:text-blue-600">Contact</a>
     </div>
   </div>
 
-  <section id="home" class="gradient-bg min-h-screen flex items-center justify-center text-white">
-    <div class="text-center px-6">
+  <!-- Hero -->
+  <main id="home" class="gradient-bg min-h-screen flex items-center justify-center text-white" role="main">
+    <div class="text-center px-6 pt-20">
       <div class="mb-8">
-        <img src="./assets/Untitled (Posters (Portrait))_20241213_032945_0000.jpg" alt="Mike Mateo Graduation Photo" class="w-40 h-40 mx-auto mb-6 rounded-full object-cover shadow-lg border-4 border-white" />
+        <img src="./assets/Untitled (Posters (Portrait))_20241213_032945_0000.jpg" alt="Portrait of Mike Mateo" class="w-40 h-40 mx-auto mb-6 rounded-full object-cover shadow-lg ring-4 ring-white" loading="eager" decoding="async" />
       </div>
       <h1 class="text-5xl md:text-7xl font-bold mb-4">Mike Mateo</h1>
-      <div class="text-xl md:text-2xl mb-8 h-8"><span id="typing-text" class="typing-animation"></span></div>
-      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">Experienced Graphic Designer with 6+ years creating digital and print designs that inspire engagement and elevate brands</p>
+      <p class="text-xl md:text-2xl mb-2 h-8"><span id="typing-text" class="typing-caret" aria-live="polite"></span></p>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">Experienced Graphic Designer with 6+ years creating digital and print designs that inspire engagement and elevate brands.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#about" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">View My Work</a>
-        <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-colors">Get In Touch</a>
+        <a href="#about" class="bg-white text-purple-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">View My Work</a>
+        <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-700 transition-colors">Get In Touch</a>
       </div>
     </div>
-  </section>
+  </main>
 
+  <!-- About -->
   <section id="about" class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-fade">
         <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">About Me</h2>
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div class="text-6xl mb-6">👨‍💻</div>
+            <div class="text-6xl mb-6" aria-hidden="true">👨‍💻</div>
             <h3 class="text-2xl font-semibold mb-4 text-gray-800">Creative Problem Solver</h3>
             <p class="text-gray-600 leading-relaxed mb-6">Graphic Designer with 6+ years of experience delivering high-impact digital and print designs. Proficient in Adobe Photoshop, Canva, and MS Office, with expertise in creating compelling visual campaigns for social media, branding, and events.</p>
             <p class="text-gray-600 leading-relaxed">Strong ability to merge creativity with strategy to increase engagement and brand visibility. Passionate about turning ideas into polished visuals that align with client goals.</p>
           </div>
-          <div class="bg-gray-50 p-8 rounded-2xl">
-            <h4 class="text-xl font-semibold mb-6 text-gray-800">Education & Certifications</h4>
+          <aside class="bg-gray-50 p-8 rounded-2xl" aria-label="Education and certifications">
+            <h4 class="text-xl font-semibold mb-6 text-gray-800">Education &amp; Certifications</h4>
             <div class="space-y-4">
               <div class="border-l-4 border-blue-500 pl-4">
                 <h5 class="font-semibold text-gray-800">Bachelor of Science in Information Technology</h5>
                 <p class="text-gray-600">Isabela State University, 2018 – 2022</p>
               </div>
-              <div class="space-y-2">
-                <div class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Graphic Design Essentials – Canva Team (2024)</div>
-                <div class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Microsoft Skills for Jobs: PowerPoint Pro (2024)</div>
-                <div class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span><a href="https://cert.efset.org/jfdD3M" target="_blank" class="hover:underline hover:text-blue-600 transition-colors">EF SET English Certificate – C1 Advanced (2024)</a><span class="ml-2 text-xs text-gray-500">(click to verify)</span></div>
-                <div class="flex items-start text-sm text-gray-600"><span aria-hidden="true" class="inline-block w-2 h-2 bg-green-500 rounded-full mr-2 mt-1 shrink-0"></span><span>Web Application Security Testing Using Open Source Tools – Isabela State University <span class="text-gray-500">(Nov 19, 2021)</span></span></div>
-                <div class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Explearning’s Everyday English – Enhanced by Explearning (Dec 11, 2024)</div>
-                <div class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span><a href="https://www.credly.com/badges/53649d1e-dab1-4f6a-8d32-92abfc4de9fe/public_url" target="_blank" class="hover:underline hover:text-blue-600 transition-colors">Asana Workflow Specialist</a><span class="ml-2 text-xs text-gray-500">(click to verify)</span></div>
-              </div>
+              <ul class="space-y-2 list-none">
+                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span>Graphic Design Essentials – Canva Team (2024)</li>
+                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span>Microsoft Skills for Jobs: PowerPoint Pro (2024)</li>
+                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span><a href="https://cert.efset.org/jfdD3M" target="_blank" rel="noopener" class="hover:underline hover:text-blue-600">EF SET English Certificate – C1 Advanced (2024)</a><span class="ml-2 text-xs text-gray-500">(verify)</span></li>
+                <li class="flex items-start text-sm text-gray-600"><span aria-hidden="true" class="inline-block w-2 h-2 bg-green-500 rounded-full mr-2 mt-1 shrink-0"></span><span>Web Application Security Testing Using Open Source Tools – Isabela State University <span class="text-gray-500">(Nov 19, 2021)</span></span></li>
+                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span>Explearning’s Everyday English – Enhanced by Explearning (Dec 11, 2024)</li>
+                <li class="flex items-center text-sm text-gray-600"><span class="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></span><a href="https://www.credly.com/badges/53649d1e-dab1-4f6a-8d32-92abfc4de9fe/public_url" target="_blank" rel="noopener" class="hover:underline hover:text-blue-600">Asana Workflow Specialist</a><span class="ml-2 text-xs text-gray-500">(verify)</span></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="section-fade">
+        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Skills &amp; Expertise</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-2xl card-hover">
+            <div class="text-4xl mb-4" aria-hidden="true">🎨</div>
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Design Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Adobe Photoshop</span>
+              <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Canva</span>
+              <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">MS Office</span>
+            </div>
+          </div>
+          <div class="bg-white p-8 rounded-2xl card-hover">
+            <div class="text-4xl mb-4" aria-hidden="true">🚀</div>
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Specializations</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Branding</span>
+              <span class="skill-tag bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Social Media Ads</span>
+              <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">Print Design</span>
+            </div>
+          </div>
+          <div class="bg-white p-8 rounded-2xl card-hover">
+            <div class="text-4xl mb-4" aria-hidden="true">💡</div>
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Additional Skills</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-tag bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">Photography</span>
+              <span class="skill-tag bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">Video Editing</span>
+              <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Problem Solving</span>
             </div>
           </div>
         </div>
@@ -108,90 +196,62 @@
     </div>
   </section>
 
-  <section id="skills" class="py-20 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="section-fade">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Skills & Expertise</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="bg-white p-8 rounded-2xl card-hover">
-            <div class="text-4xl mb-4">🎨</div>
-            <h3 class="text-xl font-semibold mb-4 text-gray-800">Design Tools</h3>
-            <div class="flex flex-wrap gap-2"><span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Adobe Photoshop</span><span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Canva</span><span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">MS Office</span></div>
-          </div>
-          <div class="bg-white p-8 rounded-2xl card-hover">
-            <div class="text-4xl mb-4">🚀</div>
-            <h3 class="text-xl font-semibold mb-4 text-gray-800">Specializations</h3>
-            <div class="flex flex-wrap gap-2"><span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Branding</span><span class="skill-tag bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Social Media Ads</span><span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">Print Design</span></div>
-          </div>
-          <div class="bg-white p-8 rounded-2xl card-hover">
-            <div class="text-4xl mb-4">💡</div>
-            <h3 class="text-xl font-semibold mb-4 text-gray-800">Additional Skills</h3>
-            <div class="flex flex-wrap gap-2"><span class="skill-tag bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">Photography</span><span class="skill-tag bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">Video Editing</span><span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Problem Solving</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- Portfolio -->
   <section id="portfolio" class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-fade">
         <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Sample Works</h2>
-        <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">Here's a showcase of my recent design projects, from social media campaigns to branding materials and print designs.</p>
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <button class="portfolio-filter active bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors" data-filter="all">All Works</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="social-media">Social Media</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="branding">Branding</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="print">Print Design</button>
-          <button class="portfolio-filter bg-gray-200 text-gray-700 px-6 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="advertising">Advertising</button>
+        <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">A selection of recent design projects — social media campaigns, branding, print, and advertising.</p>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-12" role="group" aria-label="Filter portfolio">
+          <button class="portfolio-filter active bg-blue-600 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors" data-filter="all" aria-pressed="true">All Works</button>
+          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="social-media" aria-pressed="false">Social Media</button>
+          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="branding" aria-pressed="false">Branding</button>
+          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="print" aria-pressed="false">Print Design</button>
+          <button class="portfolio-filter bg-gray-200 text-gray-700 px-5 py-2 rounded-full font-medium hover:bg-gray-300 transition-colors" data-filter="advertising" aria-pressed="false">Advertising</button>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
-          <!-- Advertising -->
+          <!-- Each figure retains your original content/images -->
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="advertising">
-            <img src="./assets/1000054877.png" loading="lazy" alt="Gogi Jjang Unlimited Pork Samgyupsal 248/head poster" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054877.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Restaurant Promo Poster</h3><p class="text-gray-600 text-sm mb-4">Unlimited Pork Samgyupsal – branch poster (social + in-store)</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">F&B</span></div></figcaption>
+            <img src="./assets/1000054877.png" loading="lazy" alt="Restaurant promo poster for Unlimited Pork Samgyupsal" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054877.png">
+            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Restaurant Promo Poster</h3><p class="text-gray-600 text-sm mb-4">Unlimited Pork Samgyupsal — branch poster (social + in-store)</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">FB</span></div></figcaption>
           </figure>
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="advertising">
-            <img src="./assets/1000054881.png" loading="lazy" alt="Gogi Jjang 248/head 1.5 hours poster" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054881.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Promo Poster (Tuguegarao)</h3><p class="text-gray-600 text-sm mb-4">Unlimited Pork Samgyupsal – 1.5 hours promo</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Restaurant</span></div></figcaption>
+            <img src="./assets/1000054881.png" loading="lazy" alt="Gogi Jjang 1.5 hours promo poster" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054881.png">
+            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Promo Poster (Tuguegarao)</h3><p class="text-gray-600 text-sm mb-4">Unlimited Pork Samgyupsal — 1.5 hours promo</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Restaurant</span></div></figcaption>
           </figure>
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="advertising">
-            <img src="./assets/1000054879.png" loading="lazy" alt="Gogi Jjang grand opening 198 unli pork" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054879.png">
-            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Grand Opening Promo</h3><p class="text-gray-600 text-sm mb-4">198 Unli Pork Samgyupsal – no time limit</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Launch</span></div></figcaption>
+            <img src="./assets/1000054879.png" loading="lazy" alt="Grand opening poster for 198 Unli Pork" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054879.png">
+            <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Grand Opening Promo</h3><p class="text-gray-600 text-sm mb-4">198 Unli Pork Samgyupsal — no time limit</p><div class="flex flex-wrap gap-2"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Advertising</span><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Launch</span></div></figcaption>
           </figure>
 
-          <!-- Print -->
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054885.png" loading="lazy" alt="SMU Congratulations banner - landscape" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054885.png">
+            <img src="./assets/1000054885.png" loading="lazy" alt="University congratulations banner — landscape layout" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054885.png">
             <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">University Congratulations Banner</h3><p class="text-gray-600 text-sm mb-4">Landscape layout for Nurse Licensure Examination passer</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Academic</span></div></figcaption>
           </figure>
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054888.png" loading="lazy" alt="SMU Congratulations banner - portrait" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054888.png">
+            <img src="./assets/1000054888.png" loading="lazy" alt="Congratulations poster — portrait version" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054888.png">
             <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Congratulations Poster (Portrait)</h3><p class="text-gray-600 text-sm mb-4">Portrait version with institutional branding</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Poster</span></div></figcaption>
           </figure>
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054889.png" loading="lazy" alt="SMU NLE Marian Nurses group banner" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054889.png">
+            <img src="./assets/1000054889.png" loading="lazy" alt="Wide-format banner featuring Marian Nurses NLE passers" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054889.png">
             <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">NLE Passers Group Banner</h3><p class="text-gray-600 text-sm mb-4">Wide-format banner featuring Marian Nurses</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Large Format</span></div></figcaption>
           </figure>
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="print">
-            <img src="./assets/1000054887.png" loading="lazy" alt="SK Chairman campaign poster - Nadine Althea" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054887.png">
+            <img src="./assets/1000054887.png" loading="lazy" alt="Community campaign poster — SK Chairman candidate" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054887.png">
             <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Community Campaign Poster</h3><p class="text-gray-600 text-sm mb-4">SK Chairman candidate visual (ready-to-print)</p><div class="flex flex-wrap gap-2"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Print</span><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded text-xs">Civic</span></div></figcaption>
           </figure>
-
-          <!-- Social Media -->
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="social-media">
-            <img src="./assets/1000054884.png" loading="lazy" alt="Young gun real estate agents - webinar tile" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054884.png">
+            <img src="./assets/1000054884.png" loading="lazy" alt="Real estate webinar social tile" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054884.png">
             <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Real Estate Webinar Creative</h3><p class="text-gray-600 text-sm mb-4">Square social tile for agent audience</p><div class="flex flex-wrap gap-2"><span class="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs">Social</span><span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs">Education</span></div></figcaption>
           </figure>
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="social-media">
-            <img src="./assets/1000054882.png" loading="lazy" alt="How much is your suburb home worth lead gen tile" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054882.png">
+            <img src="./assets/1000054882.png" loading="lazy" alt="Lead generation tile — property valuation CTA" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054882.png">
             <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Property Valuation Lead-Gen</h3><p class="text-gray-600 text-sm mb-4">CTA-focused graphic for address capture</p><div class="flex flex-wrap gap-2"><span class="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs">Social</span><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Lead Gen</span></div></figcaption>
           </figure>
-
-          <!-- Branding -->
           <figure class="portfolio-item card-hover bg-gray-50 rounded-2xl overflow-hidden" data-category="branding">
-            <img src="./assets/1000054883.png" loading="lazy" alt="Beauty Beyond Boundaries branding poster" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054883.png">
+            <img src="./assets/1000054883.png" loading="lazy" alt="Beauty Beyond Boundaries — editorial branding poster" class="h-64 w-full object-cover cursor-zoom-in lightbox-trigger" data-full="./assets/1000054883.png">
             <figcaption class="p-6"><h3 class="text-lg font-semibold mb-2 text-gray-800">Beauty Campaign Key Visual</h3><p class="text-gray-600 text-sm mb-4">Editorial look for brand message “Beauty Beyond Boundaries”</p><div class="flex flex-wrap gap-2"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Branding</span><span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Editorial</span></div></figcaption>
           </figure>
         </div>
@@ -199,62 +259,70 @@
     </div>
   </section>
 
+  <!-- Experience -->
   <section id="experience" class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-6">
       <div class="section-fade">
         <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Professional Experience</h2>
         <div class="experience-timeline pl-12">
-          <div class="mb-12 relative">
+          <article class="mb-12 relative">
             <div class="timeline-dot" style="top: 8px;"></div>
             <div class="bg-gray-50 p-6 rounded-2xl card-hover">
               <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                <h3 class="text-xl font-semibold text-gray-800">Graphic Designer – Advertising</h3>
+                <h3 class="text-xl font-semibold text-gray-800">Graphic Designer — Advertising</h3>
                 <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full font-medium">Current</span>
               </div>
               <p class="text-blue-600 font-medium mb-2">Disruptive Digital, Remote</p>
               <p class="text-gray-500 text-sm mb-4">Feb 2025 – Present</p>
-              <p class="text-gray-600">•Produced high-converting ad creatives for 7-figure eCommerce campaigns across Meta and Google.</p>
-              <p class="text-gray-600">•Collaborated with media buyers to drive results, focusing on CTR, ROAS, and lowering CPA.</p>
-              <p class="text-gray-600">•Specialized in static, motion, and UGC-style creatives.</p>
+              <ul class="text-gray-600 list-disc pl-5 space-y-1">
+                <li>Produced high-converting ad creatives for 7-figure eCommerce campaigns across Meta and Google.</li>
+                <li>Collaborated with media buyers to drive results, focusing on CTR, ROAS, and lowering CPA.</li>
+                <li>Specialized in static, motion, and UGC-style creatives.</li>
+              </ul>
             </div>
-          </div>
+          </article>
 
-          <div class="mb-12 relative">
+          <article class="mb-12 relative">
             <div class="timeline-dot" style="top: 8px;"></div>
             <div class="bg-gray-50 p-6 rounded-2xl card-hover">
               <h3 class="text-xl font-semibold text-gray-800 mb-2">Freelance Graphic Designer</h3>
               <p class="text-blue-600 font-medium mb-2">Self-Employed</p>
               <p class="text-gray-500 text-sm mb-4">2018 – Present</p>
-              <p class="text-gray-600">•Designed brochures, flyers, posters, banners, and ready-to-print tarpaulins.</p>
-              <p class="text-gray-600">•Delivered print and digital solutions for local businesses and events.</p>
+              <ul class="text-gray-600 list-disc pl-5 space-y-1">
+                <li>Designed brochures, flyers, posters, banners, and print-ready tarpaulins.</li>
+                <li>Delivered print and digital solutions for local businesses and events.</li>
+              </ul>
             </div>
-          </div>
+          </article>
 
-          <div class="mb-12 relative">
+          <article class="mb-12 relative">
             <div class="timeline-dot" style="top: 8px;"></div>
             <div class="bg-gray-50 p-6 rounded-2xl card-hover">
               <h3 class="text-xl font-semibold text-gray-800 mb-2">Graphic Designer</h3>
               <p class="text-blue-600 font-medium mb-2">Gogi Jjang Unlimited Korean Grill</p>
               <p class="text-gray-500 text-sm mb-4">2023 – 2024</p>
-              <p class="text-gray-600">•Created promotional materials</p>
-              <p class="text-gray-600">•Collaborated with the owner to design menus and graphics that increased customer engagement.</p>
+              <ul class="text-gray-600 list-disc pl-5 space-y-1">
+                <li>Created promotional materials for campaigns and in-store communications.</li>
+                <li>Collaborated with ownership to design menus and graphics that increased customer engagement.</li>
+              </ul>
             </div>
-          </div>
+          </article>
 
-          <div class="mb-12 relative">
+          <article class="mb-12 relative">
             <div class="timeline-dot" style="top: 8px;"></div>
             <div class="bg-gray-50 p-6 rounded-2xl card-hover">
               <h3 class="text-xl font-semibold text-gray-800 mb-2">Canva Affiliate</h3>
               <p class="text-blue-600 font-medium mb-2">Canva PH</p>
               <p class="text-gray-500 text-sm mb-4">2022 – 2024</p>
-              <p class="text-gray-600">•Promoted Canva by creating tutorials and videos for social media audiences.</p>
+              <p class="text-gray-600">Promoted Canva by creating tutorials and videos for social media audiences.</p>
             </div>
-          </div>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Contact -->
   <section id="contact" class="py-20 gradient-bg text-white">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <div class="section-fade">
@@ -262,123 +330,137 @@
         <p class="text-xl mb-12 opacity-90">Ready to bring your vision to life? Let's create something amazing together.</p>
         <div class="grid md:grid-cols-2 gap-8 mb-12">
           <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl">
-            <div class="text-3xl mb-4">📧</div>
+            <div class="text-3xl mb-4" aria-hidden="true">📧</div>
             <h3 class="text-lg font-semibold mb-2">Email</h3>
-            <a href="mailto:mateomike6@gmail.com" class="text-white/80 hover:text-white transition-colors">mateomike6@gmail.com</a>
+            <a href="mailto:mateomike6@gmail.com" class="text-white/90 hover:text-white">mateomike6@gmail.com</a>
           </div>
           <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl">
-            <div class="text-3xl mb-4">📱</div>
+            <div class="text-3xl mb-4" aria-hidden="true">📱</div>
             <h3 class="text-lg font-semibold mb-2">Phone</h3>
-            <a href="tel:+639682331601" class="text-white/80 hover:text-white transition-colors">+63-968-233-1601</a>
+            <a href="tel:+639682331601" class="text-white/90 hover:text-white">+63-968-233-1601</a>
           </div>
         </div>
         <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl mb-8">
-          <div class="text-3xl mb-4">📍</div>
+          <div class="text-3xl mb-4" aria-hidden="true">📍</div>
           <h3 class="text-lg font-semibold mb-2">Location</h3>
-          <p class="text-white/80">San Mateo, Isabela, Philippines</p>
+          <p class="text-white/90">San Mateo, Isabela, Philippines</p>
         </div>
-        <div class="flex justify-center space-x-4">
-          <a href="mailto:mateomike6@gmail.com" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">Send Email</a>
-          <a href="https://www.linkedin.com/in/mike-mateo" target="_blank" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-colors">LinkedIn Profile</a>
+        <div class="flex justify-center gap-4">
+          <a href="mailto:mateomike6@gmail.com" class="bg-white text-purple-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">Send Email</a>
+          <a href="https://www.linkedin.com/in/mike-mateo" target="_blank" rel="noopener" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-700 transition-colors">LinkedIn Profile</a>
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="bg-gray-900 text-white py-8">
+  <footer class="bg-gray-900 text-white py-8" role="contentinfo">
     <div class="max-w-6xl mx-auto px-6 text-center">
-      <p class="text-gray-400">© 2025 Mike Mateo. All rights reserved. Designed with passion for visual excellence.</p>
+      <p class="text-gray-400">© <span id="year"></span> Mike Mateo. All rights reserved.</p>
     </div>
   </footer>
 
-  <div id="lightbox" class="fixed inset-0 bg-black/80 hidden items-center justify-center p-4 z-[60]">
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/80 hidden items-center justify-center p-4 z-[60]" aria-hidden="true">
     <button id="lightbox-close" class="absolute top-4 right-4 text-white text-2xl" aria-label="Close">✕</button>
-    <img id="lightbox-img" alt="Preview" class="max-h-[90vh] w-auto rounded-lg shadow-2xl" />
+    <img id="lightbox-img" alt="Portfolio preview" class="max-h-[90vh] w-auto rounded-lg shadow-2xl" />
   </div>
 
   <script>
+    // Typing text (accessible, reduced motion friendly)
     const texts = ['Graphic Designer', 'Creative Problem Solver', 'Brand Strategist', 'Visual Storyteller'];
-    let textIndex = 0, charIndex = 0, isDeleting = false;
-    const typingElement = document.getElementById('typing-text');
-    function typeText() {
-      const currentText = texts[textIndex];
-      if (isDeleting) { typingElement.textContent = currentText.substring(0, charIndex - 1); charIndex--; }
-      else { typingElement.textContent = currentText.substring(0, charIndex + 1); charIndex++; }
-      if (!isDeleting && charIndex === currentText.length) setTimeout(() => isDeleting = true, 2000);
-      else if (isDeleting && charIndex === 0) { isDeleting = false; textIndex = (textIndex + 1) % texts.length; }
-      setTimeout(typeText, isDeleting ? 50 : 100);
+    let textIndex = 0, charIndex = 0, deleting = false; const typingEl = document.getElementById('typing-text');
+    function typeLoop(){
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const t = texts[textIndex];
+      if(deleting){ typingEl.textContent = t.slice(0, --charIndex); }
+      else { typingEl.textContent = t.slice(0, ++charIndex); }
+      if(!deleting && charIndex === t.length){ if(reduced){ textIndex = (textIndex+1)%texts.length; charIndex = 0; } else { deleting = true; setTimeout(typeLoop, 1200); return; } }
+      else if(deleting && charIndex === 0){ deleting = false; textIndex = (textIndex+1)%texts.length; }
+      setTimeout(typeLoop, deleting ? 45 : 90);
     }
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        document.getElementById('mobile-menu').classList.remove('translate-x-0');
-        document.getElementById('mobile-menu').classList.add('-translate-x-full');
+
+    // Smooth anchor + close mobile menu
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        if(id.length>1){ e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'}); }
+        mobileMenu.classList.add('-translate-x-full'); mobileMenu.classList.remove('translate-x-0'); mobileBtn.setAttribute('aria-expanded','false');
       });
     });
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+
+    // Mobile menu toggle (with a11y states)
+    const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('-translate-x-full');
+    mobileBtn.addEventListener('click', ()=>{
+      const open = mobileMenu.classList.toggle('-translate-x-full');
       mobileMenu.classList.toggle('translate-x-0');
+      const expanded = mobileMenu.classList.contains('translate-x-0');
+      mobileBtn.setAttribute('aria-expanded', String(expanded));
     });
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+
+    // Section fade-in
+    const io = new IntersectionObserver((entries)=>{
+      for(const entry of entries){ if(entry.isIntersecting) entry.target.classList.add('visible'); }
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
-    typeText();
+    document.querySelectorAll('.section-fade').forEach(el=> io.observe(el));
+
+    // Portfolio filters (updates aria-pressed)
     const filterButtons = document.querySelectorAll('.portfolio-filter');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const filter = button.getAttribute('data-filter');
-        filterButtons.forEach(btn => { btn.classList.remove('active','bg-blue-600','text-white'); btn.classList.add('bg-gray-200','text-gray-700'); });
-        button.classList.remove('bg-gray-200','text-gray-700'); button.classList.add('active','bg-blue-600','text-white');
-        portfolioItems.forEach(item => {
-          const category = item.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
-            item.style.display = 'block';
-            setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 100);
-          } else {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            setTimeout(() => { item.style.display = 'none'; }, 300);
-          }
+    const items = document.querySelectorAll('.portfolio-item');
+    filterButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        filterButtons.forEach(b=>{ b.classList.remove('active','bg-blue-600','text-white'); b.classList.add('bg-gray-200','text-gray-700'); b.setAttribute('aria-pressed','false'); });
+        btn.classList.remove('bg-gray-200','text-gray-700'); btn.classList.add('active','bg-blue-600','text-white'); btn.setAttribute('aria-pressed','true');
+        const filter = btn.getAttribute('data-filter');
+        items.forEach(it=>{
+          const cat = it.getAttribute('data-category');
+          const show = (filter === 'all' || cat === filter);
+          it.style.display = show ? 'block' : 'none';
+          it.style.opacity = show ? '1' : '0';
+          it.style.transform = show ? 'translateY(0)' : 'translateY(16px)';
         });
       });
     });
-    window.addEventListener('scroll', () => {
+
+    // Active section highlight
+    window.addEventListener('scroll', ()=>{
       const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      const navLinks = document.querySelectorAll('header nav a[href^="#"]');
       let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (scrollY >= (sectionTop - 200)) current = section.getAttribute('id');
-      });
-      navLinks.forEach(link => {
-        link.classList.remove('text-blue-600');
-        if (link.getAttribute('href') === `#${current}`) link.classList.add('text-blue-600');
-      });
+      sections.forEach(sec=>{ if(scrollY >= sec.offsetTop - 200) current = sec.id; });
+      navLinks.forEach(link=>{ link.classList.toggle('text-blue-600', link.getAttribute('href') === `#${current}`); });
     });
+
+    // Lightbox with focus handling
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.getElementById('lightbox-close');
-    document.querySelectorAll('.lightbox-trigger').forEach(img => {
-      img.addEventListener('click', () => {
-        const full = img.getAttribute('data-full') || img.src;
-        lightboxImg.src = full;
-        lightbox.classList.remove('hidden');
-        document.body.classList.add('lightbox-open');
-      });
-    });
-    lightboxClose.addEventListener('click', () => closeLightbox());
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    function closeLightbox() {
-      lightbox.classList.add('hidden');
-      lightboxImg.src = '';
-      document.body.classList.remove('lightbox-open');
+    function openLightbox(src){
+      lightboxImg.src = src; lightbox.classList.remove('hidden'); document.body.classList.add('lightbox-open');
+      lightbox.setAttribute('aria-hidden','false'); lightboxClose.focus();
     }
+    function closeLightbox(){
+      lightbox.classList.add('hidden'); lightboxImg.src = ''; document.body.classList.remove('lightbox-open');
+      lightbox.setAttribute('aria-hidden','true');
+    }
+    document.querySelectorAll('.lightbox-trigger').forEach(img=>{
+      img.addEventListener('click', ()=> openLightbox(img.getAttribute('data-full') || img.src));
+      img.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openLightbox(img.getAttribute('data-full')||img.src); } });
+      img.setAttribute('tabindex','0'); img.setAttribute('role','button'); img.setAttribute('aria-label','Open larger preview');
+    });
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !lightbox.classList.contains('hidden')) closeLightbox(); });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Start typing
+    typeLoop();
   </script>
+  <script>
+  window.addEventListener('DOMContentLoaded', ()=>{ if(window.lucide){ lucide.createIcons(); } });
+</script>
+
 </body>
 </html>
