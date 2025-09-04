@@ -48,6 +48,12 @@
     #lightbox.open { display: grid; }
     #lightbox img { max-width: min(92vw, 1200px); max-height: 86vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.35); transform: scale(.96); opacity: 0; transition: transform .2s ease, opacity .2s ease; }
     #lightbox.open img { transform: scale(1); opacity: 1; }
+
+    /* Deterrents: reduce casual saving/copying */
+    #portfolio-grid img, #lightbox img { -webkit-user-drag: none; user-select: none; }
+    /* Optional watermark overlay inside lightbox */
+    #lightbox { position: fixed; }
+    #lightbox .wm { position:absolute; inset:0; pointer-events:none; display:flex; align-items:center; justify-content:center; font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:clamp(22px,6vw,56px); color:rgba(255,255,255,.18); text-align:center; }
   </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -373,6 +379,7 @@
 
   <!-- Lightbox element -->
   <div id="lightbox" aria-modal="true" role="dialog" aria-label="Full-size image viewer">
+    <div class="wm">© Mike Mateo — Sample Work</div>
     <img src="" alt="" />
   </div>
 
@@ -436,12 +443,14 @@
     const lbImg = lb.querySelector('img');
 
     document.querySelectorAll('#portfolio-grid img').forEach(img => {
+      img.setAttribute('draggable','false');
+      img.addEventListener('contextmenu', e => e.preventDefault());
+      img.addEventListener('dragstart', e => e.preventDefault());
       img.addEventListener('click', () => {
         const full = img.getAttribute('data-full') || img.src;
         lbImg.src = full;
         lbImg.alt = img.alt || 'Full-size image';
         lb.classList.add('open');
-        // prevent background scroll
         document.documentElement.style.overflow = 'hidden';
       });
     });
@@ -453,13 +462,41 @@
     }
 
     lb.addEventListener('click', (e) => {
-      // Click backdrop to close. Click on image will also close; change condition if you prefer otherwise
       if (e.target === lb || e.target === lbImg) closeLB();
     });
 
+    // Block context menu & drag on lightbox image as well (deterrent only)
+    lbImg.setAttribute('draggable','false');
+    lbImg.addEventListener('contextmenu', e => e.preventDefault());
+    lbImg.addEventListener('dragstart', e => e.preventDefault());
+
+    // Light, bypassable shortcut blocks
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
+      const k = e.key.toLowerCase();
+      if ((e.ctrlKey || e.metaKey) && ['u','s','p','c'].includes(k)) e.preventDefault();
+      if (e.key === 'F12') e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(k)) e.preventDefault();
     });
   </script>
+  <script>
+  // Block context menu (right-click)
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // Block common “view source / devtools” shortcuts (very bypassable)
+  document.addEventListener('keydown', e => {
+    const k = e.key.toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && ['u','s','p','c'].includes(k)) e.preventDefault(); // Ctrl/Cmd+U,S,P,C
+    if (e.key === 'F12') e.preventDefault();                                         // F12
+    if (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(k)) e.preventDefault();    // Ctrl+Shift+I/J/C
+  });
+
+  // Optional: add a class to disable text selection (hurts accessibility—use sparingly)
+  // document.documentElement.classList.add('no-select');
+</script>
+<style>
+  /* .no-select * { user-select: none; -webkit-user-select: none; } */
+</style>
+
 </body>
 </html>
